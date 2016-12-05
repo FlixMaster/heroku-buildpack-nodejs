@@ -75,6 +75,7 @@ install_bins() {
   local node_engine=$(read_json "$BUILD_DIR/package.json" ".engines.node")
   local iojs_engine=$(read_json "$BUILD_DIR/package.json" ".engines.iojs")
   local npm_engine=$(read_json "$BUILD_DIR/package.json" ".engines.npm")
+  local yarn_engine=$(read_json "$BUILD_DIR/package.json" ".engines.yarn")
 
   if [ -n "$iojs_engine" ]; then
     echo "engines.iojs (package.json):  $iojs_engine (iojs)"
@@ -94,7 +95,7 @@ install_bins() {
     install_npm "$npm_engine" "$BUILD_DIR/.heroku/node"
   fi
   if [ -f "$BUILD_DIR/yarn.lock" ]; then
-    install_yarn "$BUILD_DIR/.heroku/yarn"
+    install_yarn "$yarn_engine" "$BUILD_DIR/.heroku/yarn"
   fi
 
   warn_old_npm
